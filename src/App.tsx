@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import FileUploadForm from './components/FileUploadForm'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App bg-light d-flex flex-column">
+      <nav className="navbar bg-white">
+        <div className="container-fluid justify-content-center">
+          <span className="navbar-text">
+            Page Views
+          </span>
+        </div>
+      </nav>
+      <div className="container">
+        <FileUploadForm />
+      </div>
     </div>
   );
 }
