@@ -18,6 +18,11 @@ const testFileContent = `
 /help_page/1 929.398.951.889
 `
 
+const wrongFileContent = `
+This is a test log file
+`
+
+
 test('Convert file content to page by IP', () => {
   expect(convertToPageByIP(testFileContent)).toStrictEqual({
     "/help_page/1": ["126.318.035.038", "929.398.951.889"],
@@ -25,6 +30,7 @@ test('Convert file content to page by IP', () => {
     "/home" : ["184.123.665.067"],
     "/about/2": ["444.701.448.104"]
   })
+  expect(convertToPageByIP(wrongFileContent)).toStrictEqual({})
 })
 
 test('Get total page view', () => {

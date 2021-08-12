@@ -4,7 +4,7 @@ export const convertToPageByIP = (fileContent: string | ArrayBuffer): PageByIP =
   const pageViewMap: PageByIP = {}
   fileContent.toString().split(/\n/).forEach((eachElem) => {
     const [page, ipAddress] = eachElem.split(/\s/);
-    if( page !== "") {
+    if( page !== "" && ipAddress.match(/\d+\.\d+\.\d+\.\d+/)) {
       if( pageViewMap[page]){
         const temp = pageViewMap[page]
         temp.push(ipAddress);
