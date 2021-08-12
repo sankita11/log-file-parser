@@ -1,17 +1,19 @@
 import React,{ useRef, useState} from 'react';
-
-import PageViewTable from './PageViewTable';
 import { PageByIP } from '../interfaces/Page';
-import { convertToPageByIP, getUniqueViews, getTotalViews } from '../utils/calculatePageCounts';
+import { convertToPageByIP } from '../utils/calculatePageCounts';
 
-const FileUploadForm: React.FC = () => {
+export type FileUploadFormProps = {
+  handlePageViewChange: (pageView: PageByIP) => void
+}
 
+const FileUploadForm: React.FC<FileUploadFormProps> = ({
+  handlePageViewChange
+}: FileUploadFormProps) => {
+  
   let fileInput = useRef<HTMLInputElement>(null)
   let fileReader = useRef<FileReader>()
-    
+  
   const [fileErrorMsg, setFileErrorMsg] = useState('')
-
-  const [pageViews, setPageViews] = useState<PageByIP>({})
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0]
@@ -26,18 +28,20 @@ const FileUploadForm: React.FC = () => {
     fileReader.current.readAsText(file)   
   }
 
+
   const handleFileRead = () => {
     const result = fileReader.current?.result
     if( result != null ){
-      setPageViews(convertToPageByIP(result))
+      handlePageViewChange(convertToPageByIP(result))
     }      
   }
 
   const resetInput = () => {
     if( fileInput.current != null)
       fileInput.current.value = "";
-    setPageViews({})
+      handlePageViewChange({})
   }
+  
  
     return(
       <div>
@@ -53,16 +57,9 @@ const FileUploadForm: React.FC = () => {
             </div>
             <div className="m-3 align-self-center">
               <button type="button" className="btn btn-secondary" onClick={resetInput}>Reset</button>
-            </div>
-            
+            </div>           
           </div>
         </form>
-        { pageViews && Object.keys(pageViews).length > 0 && (
-          <div className="d-flex flex-column flex-md-row justify-content-between">
-            <PageViewTable viewType="Total" allViews={getTotalViews(pageViews)}/>
-            <PageViewTable viewType="Unique" allViews={getUniqueViews(pageViews)}/>
-          </div>
-        )}         
       </div>
     )
 }
