@@ -9,6 +9,10 @@ This is simple web interface for uploading and parsing server logs and then calc
 
 `npm start`
 
+### Testing
+
+`npm test`
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
